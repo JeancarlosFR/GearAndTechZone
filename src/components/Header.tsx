@@ -75,7 +75,7 @@ export default function Header({cart, isEmpty,removeFromCart, increaseQuantity, 
                                             <button
                                                 className="btn btn-danger"
                                                 type="button"
-                                                onClick={() => {removeFromCart(producto.id),mostrarAlertaError('Producto Eliminado')}}
+                                                onClick={() => {removeFromCart(producto.id),mostrarAlertaError(`Se ha eliminado ${producto.name} del carrito`)}}
                                             >
                                                 X
                                             </button>
