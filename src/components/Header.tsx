@@ -1,11 +1,18 @@
-import { CartItem } from "../types/index"
+import { CartItem, Producto } from "../types/index"
+import { useToast } from "../hooks/useToast"
 
 type HeaderProps = {
     cart: CartItem[],
-    isEmpty: boolean
+    isEmpty: boolean,
+    increaseQuantity: (id: Producto['id']) => void
+    decreaseQuantity: (id: Producto['id']) => void
+    removeFromCart: (id: Producto['id']) => void
+    total: number
+    clearCart: () => void
 }
+const {mostrarAlertaError} = useToast()
 
-export default function Header({cart, isEmpty}: HeaderProps){
+export default function Header({cart, isEmpty,removeFromCart, increaseQuantity, decreaseQuantity, total, clearCart}: HeaderProps){
     return (
         
 <header className="py-5 header">
@@ -20,7 +27,7 @@ export default function Header({cart, isEmpty}: HeaderProps){
                     <div 
                         className="carrito"
                     >
-                        <img className="img-fluid" src="./public/img/carrito.png" alt="imagen carrito" />
+                        <img className="img-fluid" src="/img/carrito.png" alt="imagen carrito" />
 
                         <div id="carrito" className="bg-white p-3">
                             {isEmpty ? (
@@ -51,6 +58,7 @@ export default function Header({cart, isEmpty}: HeaderProps){
                                             <button
                                                 type="button"
                                                 className="btn btn-dark"
+                                                onClick={() => decreaseQuantity(producto.id)}
                                             >
                                                 -
                                             </button>
@@ -58,6 +66,7 @@ export default function Header({cart, isEmpty}: HeaderProps){
                                             <button
                                                 type="button"
                                                 className="btn btn-dark"
+                                                onClick={() => increaseQuantity(producto.id)}
                                             >
                                                 +
                                             </button>
@@ -66,6 +75,7 @@ export default function Header({cart, isEmpty}: HeaderProps){
                                             <button
                                                 className="btn btn-danger"
                                                 type="button"
+                                                onClick={() => {removeFromCart(producto.id),mostrarAlertaError('Producto Eliminado')}}
                                             >
                                                 X
                                             </button>
@@ -74,10 +84,14 @@ export default function Header({cart, isEmpty}: HeaderProps){
                                     ))}       
                                 </tbody>
                                 </table>                          
-                            <p className="text-end">Total pagar: <span className="fw-bold">$899</span></p>
+                            <p className="text-end">Total pagar: <span className="fw-bold">${total}</span></p>
                             </>
                             )}
-                            <button className="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
+                            <button 
+                            className="btn btn-dark w-100 mt-3 p-2"
+                            onClick={() => {clearCart(),mostrarAlertaError('Se ha vaciado el carrito')}}
+                            >
+                                Vaciar Carrito</button>
                                 
                         </div>
                     </div>

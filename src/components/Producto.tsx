@@ -1,4 +1,6 @@
 import type { Producto } from '../types/index'
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type ProductoProps = {
 
@@ -10,6 +12,12 @@ type ProductoProps = {
 export default function Producto({producto, addToCart} : ProductoProps) { 
 
     const {name,image,description,price} = producto;
+    const mostrarMensaje = (mensaje: string) => {
+        toast.success(mensaje, {
+            position: "top-left", // Cambiar a la izquierda
+            autoClose: 2000,
+          });
+      };
 
     return(
     <div className="col-md-6 col-lg-4 my-4 row align-items-center">
@@ -23,14 +31,10 @@ export default function Producto({producto, addToCart} : ProductoProps) {
             <button 
                 type="button"
                 className="btn btn-dark w-100"
-                onClick={() => addToCart(producto)}
+                onClick={() => {addToCart(producto), mostrarMensaje(`Se ha agregado ${name} al carrito`)}}
             >Agregar al Carrito</button>
         </div>
     </div>
     )
-    
-
-
-    
 
 }

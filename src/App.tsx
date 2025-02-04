@@ -2,10 +2,15 @@
 import Header from './components/Header'
 import Producto from './components/Producto'
 import { useCart } from './hooks/useCart'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
 
-    const {data, cart, addToCart, isEmpty} = useCart();
+    const {data, cart, addToCart, isEmpty,removeFromCart, increaseQuantity, decreaseQuantity, total, clearCart} = useCart();
+
+    
 
   return (
     <>
@@ -13,6 +18,11 @@ function App() {
     <Header 
         cart={cart}
         isEmpty={isEmpty}
+        increaseQuantity={increaseQuantity}
+        decreaseQuantity={decreaseQuantity}
+        removeFromCart={removeFromCart}
+        total={total}
+        clearCart={clearCart}
     />
 
     <main className="container-xl mt-5">
@@ -24,12 +34,15 @@ function App() {
                  key = {producto.id}
                  producto = {producto}
                  addToCart={addToCart}
+                 
                 
                 />
+                
             ))}
             
-            
         </div>
+        <ToastContainer />
+
     </main>
 
 
