@@ -8,7 +8,7 @@ This project is built using **React** with **TypeScript** and **Vite**, and is d
 
 - **Responsive design**: Fully responsive interface for a seamless experience across devices.
 - **Tech products**: Showcase of various tech peripherals for sale.
-- **User authentication**: Secure login and user profile management.
+
 
 ## Setup
 
